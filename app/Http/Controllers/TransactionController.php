@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Transaction;
+use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
@@ -15,7 +16,10 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'status' => true,
+            'data' => Transaction::all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +40,13 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        //
+        Transaction::create($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil tambah transaksi',
+            'data' => $request->all()
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -70,7 +80,13 @@ class TransactionController extends Controller
      */
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
-        //
+        Transaction::find($transaction->id)->update($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil ubah transaksi',
+            'data' => $request->all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +97,11 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        Transaction::destroy($transaction->id);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil hapus transaksi',
+        ], Response::HTTP_OK);
     }
 }

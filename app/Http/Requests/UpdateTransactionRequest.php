@@ -24,7 +24,12 @@ class UpdateTransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => 'required|integer|exists:users,id',
+            'shop_id' => 'required|integer|exists:shops,id',
+            'invoice_number' => 'required|string',
+            'total_price' => 'required|integer|gte:0',
+            'tax' => 'required|boolean',
+            'status' => 'required|boolean'
         ];
     }
 }

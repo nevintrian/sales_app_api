@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransactionDetailRequest;
 use App\Http\Requests\UpdateTransactionDetailRequest;
 use App\Models\TransactionDetail;
+use Illuminate\Http\Response;
 
 class TransactionDetailController extends Controller
 {
@@ -15,7 +16,10 @@ class TransactionDetailController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'status' => true,
+            'data' => TransactionDetail::all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +40,13 @@ class TransactionDetailController extends Controller
      */
     public function store(StoreTransactionDetailRequest $request)
     {
-        //
+        TransactionDetail::create($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil tambah detail transaksi',
+            'data' => $request->all()
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -70,7 +80,13 @@ class TransactionDetailController extends Controller
      */
     public function update(UpdateTransactionDetailRequest $request, TransactionDetail $transactionDetail)
     {
-        //
+        TransactionDetail::find($transactionDetail->id)->update($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil ubah detail transaksi',
+            'data' => $request->all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +97,11 @@ class TransactionDetailController extends Controller
      */
     public function destroy(TransactionDetail $transactionDetail)
     {
-        //
+        TransactionDetail::destroy($transactionDetail->id);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil hapus detail transaksi',
+        ], Response::HTTP_OK);
     }
 }

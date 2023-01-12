@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('stock');
             $table->integer('price');
-            $table->string('image');
-            $table->integer('sold');
+            $table->string('image')->default('default.jpg');
+            $table->integer('sold')->default(0);
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreShopRequest;
 use App\Http\Requests\UpdateShopRequest;
 use App\Models\Shop;
+use Illuminate\Http\Response;
 
 class ShopController extends Controller
 {
@@ -15,7 +16,10 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'status' => true,
+            'data' => Shop::all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +40,13 @@ class ShopController extends Controller
      */
     public function store(StoreShopRequest $request)
     {
-        //
+        Shop::create($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil tambah toko',
+            'data' => $request->all()
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -70,7 +80,13 @@ class ShopController extends Controller
      */
     public function update(UpdateShopRequest $request, Shop $shop)
     {
-        //
+        Shop::find($shop->id)->update($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil ubah toko',
+            'data' => $request->all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +97,11 @@ class ShopController extends Controller
      */
     public function destroy(Shop $shop)
     {
-        //
+        Shop::destroy($shop->id);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil hapus toko',
+        ], Response::HTTP_OK);
     }
 }

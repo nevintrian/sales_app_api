@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'status' => true,
+            'data' => Product::all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +40,13 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        Product::create($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil tambah produk',
+            'data' => $request->all()
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -70,7 +80,13 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        Product::find($product->id)->update($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil ubah produk',
+            'data' => $request->all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +97,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        Product::destroy($product->id);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil hapus produk',
+        ], Response::HTTP_OK);
     }
 }

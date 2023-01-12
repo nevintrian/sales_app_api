@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
-use App\Models\Category;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class CategoryController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +19,7 @@ class CategoryController extends Controller
     {
         return response()->json([
             'status' => true,
-            'data' => Category::all()
+            'data' => User::all()
         ], Response::HTTP_OK);
     }
 
@@ -35,16 +36,16 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
+     * @param  \Illuminate\Http\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreUserRequest $request)
     {
-        Category::create($request->all());
+        User::create($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => 'Berhasil tambah kategori',
+            'message' => 'Berhasil tambah user',
             'data' => $request->all()
         ], Response::HTTP_CREATED);
     }
@@ -52,10 +53,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(User $user)
     {
         //
     }
@@ -63,10 +64,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(User $user)
     {
         //
     }
@@ -74,34 +75,28 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
+     * @param  \Illuminate\Http\UpdateUserRequest  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        Category::find($category->id)->update($request->all());
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Berhasil ubah kategori',
-            'data' => $request->all()
-        ], Response::HTTP_OK);
+        User::find($user->id)->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(User $user)
     {
-        Category::destroy($category->id);
+        User::destroy($user->id);
 
         return response()->json([
             'status' => true,
-            'message' => 'Berhasil hapus kategori',
+            'message' => 'Berhasil hapus user',
         ], Response::HTTP_OK);
     }
 }
