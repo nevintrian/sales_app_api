@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id');
             $table->string('name');
-            $table->string('stock');
-            $table->integer('price');
+            $table->integer('price_pcs');
+            $table->integer('price_pack');
+            $table->boolean('status');
             $table->string('image')->default('default.jpg');
-            $table->integer('sold')->default(0);
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

@@ -18,37 +18,37 @@ class ProductSeeder extends Seeder
         Product::create([
             'category_id' => 1,
             'name' => 'Biskuat',
-            'stock' => 11,
-            'price' => 10000,
+            'price_pcs' => 10000,
+            'price_pack' => 200000,
+            'status' => 1,
             'image' => 'biskuat.jpg',
-            'sold' => 1
         ]);
 
         Product::create([
             'category_id' => 1,
             'name' => 'Oreo',
-            'stock' => 7,
-            'price' => 15000,
+            'price_pcs' => 15000,
+            'price_pack' => 200000,
+            'status' => 1,
             'image' => 'oreo.jpg',
-            'sold' => 3
         ]);
 
         Product::create([
             'category_id' => 2,
             'name' => 'Milkuat',
-            'stock' => 8,
-            'price' => 4000,
+            'price_pcs' => 4000,
+            'price_pack' => 150000,
+            'status' => 0,
             'image' => 'milkuat.jpg',
-            'sold' => 5
         ]);
 
         Product::create([
             'category_id' => 3,
             'name' => 'Yupi',
-            'stock' => 9,
-            'price' => 5000,
+            'price_pcs' => 5000,
+            'price_pack' => 100000,
+            'status' => 1,
             'image' => 'yupi.jpg',
-            'sold' => 12
         ]);
     }
 }
